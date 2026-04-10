@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #F0EEEA;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 160vh;
+            background: #D2E0D3;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 150px;
+            text-align: center;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: #D6CBBF;
+           font-size: 30px;
+            font-weight: bolder;
+            cursor: pointer;
+            color:#324c47
+        }
+
+        /* MAIN */
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+    /* TOP BAR */
+        .topbar {
+            font-size: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #EDE7E3;
+            padding: 15px 25px;
+            border-radius: 10px;
+        }
+
+        /* CARDS */
+        .cards {
+
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+
+            flex: 1;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+
+        }
+
+        .card h3,
+        h2 {
+            font-size: 40px;
+        }
+
+        .card1 {
+
+            background: #A8C3B0;
+        }
+
+        .card2 {
+            background: #F5C6C6;
+        }
+
+        .card3 {
+            background: #F3E2C7;
+        }
+
+        .card4 {
+            background: #E6D5C3;
+        }
+
+        /* ASSIGNMENTS */
+        .assignments {
+            font-size: 40px;
+            margin-top: 60px;
+            background: #D6CBBF;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        /* FILTER */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .filters button {
+            color: #F0EEEA;
+            font-size: 30px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background: #324c47;
+            cursor: pointer;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #EDE7E3;
+        }
+
+        tr {
+            background: #F5F1ED;
+            border-radius: 10px;
+        }
+
+        tr+tr {
+            margin-top: 10px;
+        }
+
+        /* STATUS */
+        .status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .todo {
+            background: #F8B4A9;
+        }
+
+        .doing {
+            background: #F6D28F;
+        }
+
+        .progress {
+            background: #D2E0D3;
+        }
+
+        .done {
+            background: #97B3AE;
+        }
+
+        /* BUTTONS */
+        .action-btn {
+            color: #D6CBBF;
+            font-size: 30px;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete {
+            background: #F2C3B9;
+        }
+
+        .edit {
+            background: #D2E0D3;
+        }
+
+        .add-btn {
+
+            color: #F0EEEA;
+            font-size: 30px;
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #324c47;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+
+ <!-- مكان Sidebar -->
+<div class="sidebar">
+        <h2>🎓</h2>
+
+        <button onclick="location.href='MAIN1.html'">Dashboard</button>
+        <button onclick="location.href='COURSE.html'">Courses</button>
+        <!-- <button onclick="location.href='assignments.html'">Assignments</button> -->
+        <button onclick="location.href='Student Info Page.html'">Student Info</button>
+        <button onclick="location.href='log out.html'">Logout</button>
+    </div>
+
+    <div class="main">
+
+      <div class="topbar">
+            <h3 id="welcomeText">Welcome!👋🏻</h3>
+            <img src="LOGO_TR.png" width="200">
+        </div>
+
+        <!-- CARDS -->
+        <div class="cards">
+            <div class="card card1">
+                <img src="books.png" style="margin-top: 27px;width: 420px;">
+                <h3 style="font-size: 40px;">Total Courses</h3>
+                <h2 id="totalCourses">0</h2>
+            </div>
+            <div class="card card2">
+                <img src="completed.png" style="margin-top: 27px;">
+                <h3>Completed</h3>
+                <h2 id="completedCourses">0</h2>
+            </div>
+            <div class="card card3">
+                <img src="InProgress-removebg-preview.png" style="height: 380px;width: 390px;">
+                <h3>In Progress</h3>
+                <h2 id="inProgressCourses">0</h2>
+            </div>
+            <div class="card card4">
+                <img src="dropped-removebg-preview.png" style="height: 380px;width: 390px;">
+                <h3>Dropped</h3>
+                <h2 id="droppedCourses">0</h2>
+            </div>
+        </div>
+
+        <!-- ASSIGNMENTS -->
+        <div class="assignments">
+            <h2>Upcoming Assignments📜</h2>
+
+            <div class="filters">
+                <button onclick="filterAssignments('all')">All</button>
+                <button onclick="filterAssignments('todo')">To Do</button>
+                <button onclick="filterAssignments('doing')">Doing</button>
+                <button onclick="filterAssignments('done')">Done</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Assignment Name</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+
+            <button class="add-btn">Add Assignment</button>
+        </div>
+
+    </div>
+
+    <script>
+        // ===== Assignments =====
+        let assignments = JSON.parse(localStorage.getItem("assignments")) || [];
+        let currentFilter = "all";
+
+        function renderAssignments() {
+            const table = document.getElementById("tableBody");
+            table.innerHTML = "";
+
+            assignments
+                .filter(a => currentFilter === "all" || a.status === currentFilter)
+                .forEach((a, index) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${a.title}</td>
+                        <td>${a.date}</td>
+                        <td><span class="status ${a.status}" onclick="changeStatus(${index})">${a.status}</span></td>
+                        <td>
+                            <button class="action-btn edit" onclick="editAssignment(${index})">✏️</button>
+                            <button class="action-btn delete" onclick="deleteAssignment(${index})">❌</button>
+                        </td>
+                    `;
+                    table.appendChild(row);
+                });
+        }
+
+        document.querySelector(".add-btn").onclick = function () {
+            let title = prompt("Enter assignment title:");
+            let date = prompt("Enter deadline:");
+            let status = "todo";
+
+            if (title && date) {
+                assignments.push({ title, date, status });
+                localStorage.setItem("assignments", JSON.stringify(assignments));
+                renderAssignments();
+            }
+        };
+
+        function deleteAssignment(index) {
+            assignments.splice(index, 1);
+            localStorage.setItem("assignments", JSON.stringify(assignments));
+            renderAssignments();
+        }
+
+        function editAssignment(index) {
+            let newTitle = prompt("Edit title:", assignments[index].title);
+            let newDate = prompt("Edit date:", assignments[index].date);
+
+            if (newTitle && newDate) {
+                assignments[index].title = newTitle;
+                assignments[index].date = newDate;
+                localStorage.setItem("assignments", JSON.stringify(assignments));
+                renderAssignments();
+            }
+        }
+
+        function changeStatus(index) {
+            const statuses = ["todo", "doing", "progress", "done"];
+            let current = statuses.indexOf(assignments[index].status);
+            assignments[index].status = statuses[(current + 1) % statuses.length];
+            localStorage.setItem("assignments", JSON.stringify(assignments));
+            renderAssignments();
+        }
+
+        function filterAssignments(filter) {
+            currentFilter = filter;
+            renderAssignments();
+        }
+
+        renderAssignments();
+
+        // ===== Courses Stats =====
+        function updateCourseStats() {
+            let courses = JSON.parse(localStorage.getItem("courses")) || [];
+            let total = courses.length;
+            let completed = courses.filter(c => c.status === "completed").length;
+            let inProgress = courses.filter(c => c.status === "in-progress").length;
+            let dropped = courses.filter(c => c.status === "dropped").length;
+
+            document.getElementById("totalCourses").innerText = total;
+            document.getElementById("completedCourses").innerText = completed;
+            document.getElementById("inProgressCourses").innerText = inProgress;
+            document.getElementById("droppedCourses").innerText = dropped;
+        }
+
+        updateCourseStats();
+
+        function loadUserName() {
+            let name = localStorage.getItem("all_students");
+
+            if (name) {
+                document.getElementById("welcomeText").innerText = "Welcome, " + name + "!";
+            }
+        }
+
+        loadUserName();
+    </script>
+
+</body>
+
+</html>

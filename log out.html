@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Logout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&family=Open+Sans:wght@400;500&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-sage: #97B3AE;
+            --color-mint: #D2E0D3;
+            --color-cream: #F0DDD6;
+            --color-peach: #F2C3B9;
+            --color-beige: #D6CBBF;
+            --color-white-smoke: #F0EEEA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--color-white-smoke), var(--color-cream));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .logout-container {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--color-mint);
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-sage);
+            margin-bottom: 20px;
+        }
+
+        .logout-icon {
+            font-size: 4rem;
+            color: var(--color-peach);
+            margin-bottom: 20px;
+        }
+
+        .logout-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--color-sage);
+            margin-bottom: 15px;
+        }
+
+        .logout-message {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px 10px;
+        }
+
+        .btn-primary {
+            background: var(--color-sage);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-mint);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--color-peach);
+            color: white;
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        <div class="logo">📚 Logged out</div>
+        <div class="logout-icon">👋</div>
+        <h1 class="logout-title">Logged Out Successfully</h1>
+        <p class="logout-message">
+            You have been successfully logged out. <br>
+            Your session data has been cleared.
+        </p>
+        
+        <a href="log in.html" class="btn btn-primary">Sign In Again</a>
+        <a href="log in.html" class="btn btn-secondary">Home Page</a>
+    </div>
+
+    <script>
+        localStorage.removeItem('isLoggedIn');
+        
+    </script>
+</body>
+</html>

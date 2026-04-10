@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courses</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #F0EEEA;
+    display: flex;
+}
+
+/* MAIN CONTENT */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* TOP BAR */
+        .topbar {
+            font-size: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #EDE7E3;
+            padding: 15px 25px;
+            border-radius: 10px;
+        }
+/* TABLE */
+table {
+    font-size: 30px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: #EDE7E3;
+}
+
+tr {
+    background: #F5F1ED;
+}
+
+tr+tr {
+    margin-top: 10px;
+}
+
+/* STATUS */
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.completed { background: #97B3AE; }
+.in-progress { background: #D2E0D3; }
+.dropped { background: #F2C3B9; }
+
+/* BUTTONS */
+button { cursor:pointer; }
+
+.action-btn {
+    font-size: 30px;
+    border:none;
+    padding:5px 10px;
+    border-radius:5px;
+}
+
+.delete { background:#F2C3B9; }
+.edit { background:#D2E0D3; }
+
+.add-btn {
+    color: #F0EEEA;
+    font-size: 30px;
+    display:block;
+    margin:20px auto 0;
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    background:#324c47;
+}
+
+/* FILTER */
+.filters {
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
+}
+
+.filters button {
+    color:#F0EEEA;
+    font-size:30px;
+    padding:8px 15px;
+    border:none;
+    border-radius:20px;
+    background:#324c47;
+}
+
+
+        .sidebar {
+            width: 250px;
+            height: 160vh;
+            background: #D2E0D3;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 150px;
+            text-align: center;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: #D6CBBF;
+           font-size: 30px;
+            font-weight: bolder;
+            cursor: pointer;
+            color:#324c47
+        }
+</style>
+
+</head>
+
+<body>
+
+<!-- مكان Sidebar -->
+<div class="sidebar">
+        <h2>🎓</h2>
+
+        <button onclick="location.href='MAIN1.html'">Dashboard</button>
+        <button onclick="location.href='COURSE.html'">Courses</button>
+        <!-- <button onclick="location.href='assignments.html'">Assignments</button> -->
+        <button onclick="location.href='Student Info Page.html'">Student Info</button>
+        <button onclick="location.href='log out.html'">Logout</button>
+    </div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+    <div class="topbar">
+            <h3 id="welcomeText">Welcome!👋🏻</h3>
+            <img src="LOGO_TR.png" width="200">
+        </div>
+    <h2 style="font-size: 50px;">Courses🕮</h2>
+
+    <div class="filters">
+        <button onclick="filterCourses('all')">All</button>
+        <button onclick="filterCourses('completed')">Completed</button>
+        <button onclick="filterCourses('in-progress')">In Progress</button>
+        <button onclick="filterCourses('dropped')">Dropped</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Credits</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Instructor</th>
+                <th>Classroom</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <button class="add-btn" onclick="addCourse()">Add Course</button>
+</div>
+
+<script>
+// ==== Load Sidebar dynamically ====
+fetch('sidebar.html')
+    .then(response => response.text())
+    .then(html => {
+        document.getElementById('sidebarContainer').innerHTML = html;
+    });
+
+// ==== Courses Logic ====
+let courses = JSON.parse(localStorage.getItem("courses")) || [];
+let currentFilter = "all";
+
+function renderCourses() {
+    const table = document.getElementById("tableBody");
+    table.innerHTML = "";
+    courses
+        .filter(c => currentFilter === "all" || c.status === currentFilter)
+        .forEach((c, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${c.name}</td>
+                <td>${c.credits}</td>
+                <td>${c.start}</td>
+                <td>${c.end}</td>
+                <td>${c.instructor}</td>
+                <td>${c.classroom}</td>
+                <td><span class="status ${c.status}">${c.status}</span></td>
+                <td>
+                    <button class="action-btn edit" onclick="editCourse(${index})">✏️</button>
+                    <button class="action-btn delete" onclick="deleteCourse(${index})">❌</button>
+                </td>
+            `;
+            table.appendChild(row);
+        });
+}
+
+function addCourse() {
+    let name = prompt("Course name:");
+    let credits = prompt("Credit hours:");
+    let start = prompt("Start time:");
+    let end = prompt("End time:");
+    let instructor = prompt("Instructor:");
+    let classroom = prompt("Classroom:");
+    let status = prompt("Status (completed / in-progress / dropped):");
+
+    if (name && credits && status) {
+        courses.push({ name, credits, start, end, instructor, classroom, status });
+        localStorage.setItem("courses", JSON.stringify(courses));
+        renderCourses();
+    }
+}
+
+function deleteCourse(index) {
+    courses.splice(index, 1);
+    localStorage.setItem("courses", JSON.stringify(courses));
+    renderCourses();
+}
+
+function editCourse(index) {
+    let c = courses[index];
+    let name = prompt("Edit name:", c.name);
+    let credits = prompt("Edit credits:", c.credits);
+    let start = prompt("Edit start:", c.start);
+    let end = prompt("Edit end:", c.end);
+    let instructor = prompt("Edit instructor:", c.instructor);
+    let classroom = prompt("Edit classroom:", c.classroom);
+    let status = prompt("Edit status:", c.status);
+
+    if (name && credits && status) {
+        courses[index] = { name, credits, start, end, instructor, classroom, status };
+        localStorage.setItem("courses", JSON.stringify(courses));
+        renderCourses();
+    }
+}
+
+function filterCourses(filter) {
+    currentFilter = filter;
+    renderCourses();
+}
+
+renderCourses();
+
+// ==== Load User Name ====
+function loadUserName() {
+    let name = localStorage.getItem("userName");
+    if (name) {
+        document.getElementById("welcomeText").innerText = "Welcome, " + name + "!";
+    }
+}
+loadUserName();
+</script>
+
+</body>
+</html>
